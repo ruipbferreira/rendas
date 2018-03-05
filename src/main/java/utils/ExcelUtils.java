@@ -48,7 +48,7 @@ public class ExcelUtils {
                         HSSFCell niffCell = currentRow.getCell(Integer.parseInt(props.get("nif")));
                         fraction.setNif(niffCell.getCellType() == 1 ? niffCell.getStringCellValue() : (int)niffCell.getNumericCellValue() + "");
                         //valor
-                        fraction.setValue(currentRow.getCell(Integer.parseInt(props.get("valor"))).getNumericCellValue() + "â‚¬");
+                        fraction.setValue(currentRow.getCell(Integer.parseInt(props.get("valor"))).getNumericCellValue() + "€");
                         //morada
                         fraction.setAddress(currentRow.getCell(Integer.parseInt(props.get("morada"))).getStringCellValue());
                         //codigofreguesia

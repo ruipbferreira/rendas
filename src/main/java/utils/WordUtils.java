@@ -40,7 +40,7 @@ public class WordUtils {
 			doc = replaceText(doc, properties.get("wordfraccao"), fraction.getFractionCode());
 			// wordquotaparte
 			doc = replaceText(doc, properties.get("wordquotaparte"), fraction.getShare());
-			String finalFilePathOut = filePathOut + System.getProperty("file.separator") + fraction.getFractionCode() + ".doc";
+			String finalFilePathOut = filePathOut + System.getProperty("file.separator") + fraction.getName() + ".doc";
 			saveWord(finalFilePathOut, doc);
 		}
 	}
