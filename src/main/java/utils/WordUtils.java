@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.usermodel.CharacterRun;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.hwpf.usermodel.Section;
@@ -19,7 +18,8 @@ import model.Fraction;
 
 public class WordUtils {
 
-	public static void generateWord(List<Fraction> fractions, File templatePath, String outputPath, Map<String, String> properties) throws Exception {
+	public static void generateWord(List<Fraction> fractions, File templatePath, 
+			String outputPath, Map<String, String> properties, WordCallback callback) throws Exception {
 		String filePathOut = outputPath;
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templatePath));
 		for (Fraction fraction : fractions) {
@@ -43,6 +43,7 @@ public class WordUtils {
 			String finalFilePathOut = filePathOut + System.getProperty("file.separator") + fraction.getName() + ".doc";
 			saveWord(finalFilePathOut, doc);
 		}
+		callback.execute();
 	}
 
 	private static HWPFDocument replaceText(HWPFDocument doc, String findText, String replaceText){
@@ -52,12 +53,8 @@ public class WordUtils {
 			Section s = r1.getSection(i); 
 			for (int x = 0; x < s.numParagraphs(); x++) { 
 				Paragraph p = s.getParagraph(x); 
-				for (int z = 0; z < p.numCharacterRuns(); z++) { 
-					CharacterRun run = p.getCharacterRun(z); 
-					String text = run.text();
-					if(text.contains(findText)) {
-						run.replaceText(findText, replaceText);
-					} 
+				if(p.text().contains(findText)) {
+					p.replaceText(findText, replaceText);
 				}
 			}
 		} 
