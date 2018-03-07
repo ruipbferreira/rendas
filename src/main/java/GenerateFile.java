@@ -138,7 +138,8 @@ public class GenerateFile extends JFrame {
 							try {
 								final List<Fraction> fractionsFromFile = ExcelUtils.getFractionsFromFile(excelFile, propsExcel);
 								if(!fractionsFromFile.isEmpty()) {
-									WordUtils.generateWord(fractionsFromFile, templateFile, outputFile.getAbsolutePath(), propsWord, new WordCallback() {
+									WordUtils.generateWord(fractionsFromFile, templateFile, 
+											outputFile.getAbsolutePath(), propsWord, chooserDate, new WordCallback() {
 
 										public void execute() {
 											int confirmed = JOptionPane.showConfirmDialog(GenerateFile.this, 
@@ -165,7 +166,7 @@ public class GenerateFile extends JFrame {
 
 	private static void createAndShowUI() {
 		JFrame frame = new GenerateFile();
-		frame.setTitle("Rendas 1.0");
+		frame.setTitle("Rendas");
 		frame.setSize(200, 200);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

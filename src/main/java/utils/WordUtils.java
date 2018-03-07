@@ -5,7 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.poi.hwpf.HWPFDocument;
@@ -19,7 +22,7 @@ import model.Fraction;
 public class WordUtils {
 
 	public static void generateWord(List<Fraction> fractions, File templatePath, 
-			String outputPath, Map<String, String> properties, WordCallback callback) throws Exception {
+			String outputPath, Map<String, String> properties, Date chooserDate, WordCallback callback) throws Exception {
 		String filePathOut = outputPath;
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(templatePath));
 		for (Fraction fraction : fractions) {
@@ -40,6 +43,12 @@ public class WordUtils {
 			doc = replaceText(doc, properties.get("wordfraccao"), fraction.getFractionCode());
 			// wordquotaparte
 			doc = replaceText(doc, properties.get("wordquotaparte"), fraction.getShare());
+			// worddate
+			SimpleDateFormat formatDay = new SimpleDateFormat("dd", new Locale("pt","pt"));
+			SimpleDateFormat formatMonth = new SimpleDateFormat("MMMM", new Locale("pt","pt"));
+			SimpleDateFormat formatYear = new SimpleDateFormat("yyyy", new Locale("pt","pt"));
+			String date = formatDay.format(chooserDate) + " de " + formatMonth.format(chooserDate) + " de " + formatYear.format(chooserDate);
+			doc = replaceText(doc, properties.get("worddate"), date);
 			String finalFilePathOut = filePathOut + System.getProperty("file.separator") + fraction.getName() + ".doc";
 			saveWord(finalFilePathOut, doc);
 		}
