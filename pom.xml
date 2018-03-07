@@ -7,7 +7,7 @@
     <groupId>rendas</groupId>
     <artifactId>rendas</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+	
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
@@ -33,6 +33,7 @@
 
     </dependencies>
     <build>
+    	<finalName>Rendas</finalName>
     	<plugins>
     		<plugin>
   <groupId>org.springframework.boot</groupId>
@@ -43,7 +44,7 @@
         <goal>repackage</goal>
       </goals>
       <configuration>
-        <classifier>spring-boot</classifier>
+        <classifier></classifier>
         <mainClass>${fully.qualified.main.class}</mainClass>
       </configuration>
     </execution>
