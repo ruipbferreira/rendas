@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,9 +36,8 @@ public class ExcelUtils {
                 HSSFRow currentRow = (HSSFRow) iterator.next();
                 HSSFCell cell = (HSSFCell) currentRow.getCell(10);
                 if(cell != null) {
-                    HSSFFont font = cell.getCellStyle().getFont(workbook);
-                    short color = font.getColor();
-                    if(color != 14 && !cell.getStringCellValue().startsWith("--")) {
+                    String isToGenerate = currentRow.getCell(Integer.parseInt(props.get("isToGenerate"))).getStringCellValue();
+                    if("S".equalsIgnoreCase(isToGenerate)) {
                         Fraction fraction = new Fraction();
                         retObj.add(fraction);
                         //nome
